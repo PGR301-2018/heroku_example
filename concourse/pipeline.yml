@@ -4,31 +4,13 @@ jobs:
   - aggregate:
     - get: heroku-example
       trigger: true
-  - task: create-app
-    file: heroku-example/concourse/init_application.yml
-    input_mapping: {source: heroku-example}
+  - task: sync_heroku
+    file: heroku-example/concourse/heroku_sync.yml
+    input_mapping: {source: heroku-example-app}
     params:
       app_name: glennbech-heroku-example
       heroku_email: ((heroku_email))
       heroku_api_token: ((heroku_api_token))
-
-- name: deploy-infra
-  plan:
-  - aggregate:
-    - get: heroku-example
-      trigger: true
-  - task: apply
-    file: heroku-example/concourse/task_terraform.yml
-    input_mapping: {source: heroku-example}
-    params:
-      github_token: ((github_token))
-      command: apply
-      directories: |
-          .
-  - put: heroku-example
-    params:
-      repository: with-state
-      rebase: true
 
 resources:
 
@@ -38,3 +20,10 @@ resources:
       uri: git@github.com:PGR301-2018/heroku_example.git
       branch: master
       private_key: ((deploy_key))
+
+- name: heroku-example-app
+  type: git
+  source:
+      uri: git@github.com:PGR301-2018/heroku_example-app.git
+      branch: master
+      private_key: ((deploy_key-app))
