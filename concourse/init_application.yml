@@ -25,4 +25,4 @@ run:
           login ${heroku_email}
           password ${heroku_api_token}
       EOF
-      git push https://git.heroku.com/${app_name} master:refs/heads/master
+      git push https://git.heroku.com/${app_name}.git master:refs/heads/master
