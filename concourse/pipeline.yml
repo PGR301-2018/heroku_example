@@ -1,8 +1,9 @@
 jobs:
-- name: initialize-app
+- name: deploy-heroku
   plan:
   - aggregate:
     - get: heroku-example
+    - get: heroku-example-app
       trigger: true
   - task: sync_heroku
     file: heroku-example/concourse/heroku_sync.yml
@@ -26,4 +27,4 @@ resources:
   source:
       uri: git@github.com:PGR301-2018/heroku_example-app.git
       branch: master
-      private_key: ((deploy_key-app))
+      private_key: ((deploy-key-app))
