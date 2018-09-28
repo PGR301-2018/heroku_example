@@ -24,5 +24,8 @@ run:
       machine api.heroku.com
           login ${heroku_email}
           password ${heroku_api_token}
+      machine git.heroku.com
+          login ${heroku_email}
+          password ${heroku_api_token}
       EOF
       git push https://git.heroku.com/${app_name}.git master:refs/heads/master
