@@ -17,7 +17,7 @@ caches:
 
 params:
   command:
-  directories:
+  directories: terraform
   cache: "false"
   lock_timeout: 5m
   github_token: ((github_token))
