@@ -20,9 +20,8 @@ jobs:
   - aggregate:
     - get: heroku-example
       trigger: true
-
   - task: apply
-    file: heroku-example/concourse/task_apply_terraform.yml
+    file: source/concourse/task_apply_terraform.yml
     input_mapping: {source: heroku-example}
     params:
       github_token: ((github_token))
